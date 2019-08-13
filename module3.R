@@ -5,6 +5,8 @@ download.file("https://ibm.box.com/shared/static/cmid70rpa7xe4ocitcga1bve7r0kqni
 # Installing the required packages
 install.packages("tm") # for text mining
 install.packages("wordcloud") # word-cloud generator
+install.packages("dplyr")
+install.packages("devtools")
 
 # Loading the libraries into the environment.
 library(tm)
@@ -54,3 +56,23 @@ wordcloud(words = d$word, freq = d$freq)
 
 wordcloud(words = d$word, freq = d$freq, min.freq = 1,
           max.words=250, colors=brewer.pal(8, "Dark2"), random.order = FALSE )
+
+install.packages("plotly")
+library(plotly)
+
+#making the results reproducible
+set.seed(1234)
+
+set_a <- rnorm(200, mean=1, sd=2)
+set_b <- rnorm(200, mean=0, sd=1)
+
+#create the data frame
+df <- data.frame(label = factor(rep(c("A","B"), each=200)), value = c(set_a, set_b))
+
+#output both the first and last rows
+head(df)
+tail(df)
+
+ggplot(df, aes(x=label, y=value)) + geom_boxplot()
+
+ggplotly()
